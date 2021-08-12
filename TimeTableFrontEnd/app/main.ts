@@ -30,6 +30,7 @@ function createWindow(): BrowserWindow {
     minHeight: 600
   });
 
+  win.webContents.openDevTools();
 
   if (serve) {
     win.webContents.openDevTools();

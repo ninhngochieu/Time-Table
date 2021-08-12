@@ -5,6 +5,7 @@ import {FooterComponent} from './footer/footer.component';
 import {LeftSidebarComponent} from './left-sidebar/left-sidebar.component';
 import {RightSidebarComponent} from './right-sidebar/right-sidebar.component';
 import {ContentComponent} from './content/content.component';
+import { ComponentsComponent } from './components.component';
 
 
 
@@ -15,7 +16,8 @@ import {ContentComponent} from './content/content.component';
     LeftSidebarComponent,
     RightSidebarComponent,
     ContentComponent,
-    FooterComponent
+    FooterComponent,
+    ComponentsComponent
   ],
   exports: [
     HeaderComponent,

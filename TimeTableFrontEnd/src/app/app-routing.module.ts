@@ -4,13 +4,15 @@ import { PageNotFoundComponent } from './shared/components';
 
 import { HomeRoutingModule } from './home/home-routing.module';
 import { DetailRoutingModule } from './detail/detail-routing.module';
+import {ComponentsModule} from './components/components.module';
+import {ComponentsRoutingModule} from './components/components-routing.module';
 
 const routes: Routes = [
-  // {
-  //   path: '',
-  //   redirectTo: 'home',
-  //   pathMatch: 'full'
-  // },
+  {
+    path: '',
+    redirectTo: 'components',
+    pathMatch: 'full'
+  },
   // {
   //   path: '**',
   //   component: PageNotFoundComponent
@@ -21,7 +23,8 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }),
     HomeRoutingModule,
-    DetailRoutingModule
+    DetailRoutingModule,
+    ComponentsRoutingModule
   ],
   exports: [RouterModule]
 })
