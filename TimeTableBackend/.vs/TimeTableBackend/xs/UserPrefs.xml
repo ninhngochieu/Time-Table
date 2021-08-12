@@ -1,19 +1,14 @@
 ﻿<Properties StartupConfiguration="{FF76D954-E95F-427D-91D4-C7CF286F6389}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="TimeTableBackend/Migrations/20210812150043_Them-Mon-Hoc.cs">
-    <Files>
-      <File FileName="TimeTableBackend/Startup.cs" Line="1" Column="1" />
-      <File FileName="TimeTableBackend/Models/Context.cs" Line="12" Column="45" />
-      <File FileName="TimeTableBackend/Migrations/20210812150043_Them-Mon-Hoc.cs" Line="1" Column="1" />
-    </Files>
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="TimeTableBackend" expanded="True">
             <Node name="TimeTableBackend" expanded="True">
-              <Node name="Migrations" expanded="True">
-                <Node name="20210812150043_Them-Mon-Hoc.cs" selected="True" />
-              </Node>
+              <Node name="Controllers" expanded="True" />
+              <Node name="Migrations" expanded="True" />
               <Node name="Models" expanded="True" />
+              <Node name="db.db" selected="True" />
             </Node>
           </Node>
         </State>

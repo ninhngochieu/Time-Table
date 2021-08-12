@@ -1,6 +1,7 @@
 class Buoi {
   id: number;
   soTiet: number;
+  batDauLuc: number;
   tietBatDau: number;
   tietKetThuc: number;
 }

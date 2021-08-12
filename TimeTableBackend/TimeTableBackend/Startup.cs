@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using TimeTableBackend.Models;
 
 namespace TimeTableBackend
@@ -21,7 +22,9 @@ namespace TimeTableBackend
         {
 
             services.AddControllers();
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(c=> {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API V1", Version = "v1" });
+            });
             services.AddEntityFrameworkSqlite().AddDbContext<Context>();
         }
 

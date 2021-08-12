@@ -10,6 +10,8 @@ namespace TimeTableBackend.Models
         }
 
         public virtual DbSet<MonHoc> MonHocs{ get; set; }
+        public virtual DbSet<NhomMonHoc> NhomMonHocs{ get; set; }
+        public virtual DbSet<Buoi> Buois{ get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

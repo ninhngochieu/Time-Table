@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+
 namespace TimeTableBackend.Models
 {
     public class MonHoc
@@ -10,5 +13,6 @@ namespace TimeTableBackend.Models
         public string Ten { get; set; }
         public string MaMonHoc { get; set; }
         public int SoTinChi { get; set; }
+        public IList<NhomMonHoc>? NhomMonHoc { get; set; }
     }
 }
