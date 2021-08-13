@@ -1,10 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Edge.SeleniumTools;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using TimeTableBackend.Models;
 
 namespace TimeTableBackend
@@ -13,7 +18,7 @@ namespace TimeTableBackend
     {
         public static void Main(string[] args)
         {
-            RunSelenium();
+            //RunSelenium();
             CreateHostBuilder(args).Build().Run();
 
         }
@@ -33,7 +38,62 @@ namespace TimeTableBackend
                 DoLogin(driver);
             }
 
-            Console.WriteLine(getNienKhoa(driver, context));
+            NienKhoa nienKhoaDb = getNienKhoa(driver, context);
+            getDanhSachMonHoc(nienKhoaDb, context,driver);
+        }
+
+        private static void getDanhSachMonHoc(NienKhoa nienKhoaDb, Context context, EdgeDriver driver)
+        {
+            var dkmhSpan = driver.FindElementById("ctl00_menu_lblDangKyMonHoc");
+            dkmhSpan.Click();
+            var chonKhoaParent = driver.FindElementById("divDanhSachDieuKienLoc");
+            var IsVisible = chonKhoaParent.Displayed;
+            while (!IsVisible)
+            {
+                IsVisible = chonKhoaParent.Displayed;
+            }
+            var chonKhoa = driver.FindElementByXPath("//*[@id=\"selectDKLoc\"]/option[2]");
+            chonKhoa.Click();
+            var chonDanhSachKhoa = driver.FindElementById("selectKhoa");
+            ReadOnlyCollection<IWebElement> webElements = chonDanhSachKhoa.FindElements(By.TagName("option"));
+            foreach(IWebElement element in webElements)
+            {
+                element.Click();
+                IWebElement selectedElement = driver.FindElementByXPath("//*[@id=\"divTDK\"]");
+                Thread.Sleep(500);
+                ReadOnlyCollection <IWebElement> monHocs = selectedElement.FindElements(By.TagName("tr"));
+                //Console.WriteLine(element.Text + " - " + monHocs.Count);
+                foreach(var mh in monHocs)
+                {
+                    ReadOnlyCollection<IWebElement> tds = mh.FindElements(By.TagName("td"));
+                    string maMH = tds[1].Text;
+                    string tenMH = tds[2].Text;
+                    int soChi = int.Parse(tds[5].Text); 
+                    MonHoc monHoc = context.MonHocs.Where(m => m.MaMonHoc.Contains(maMH)).FirstOrDefault();
+                    if(monHoc is null)
+                    {
+                        monHoc = new MonHoc
+                        {
+                            Ten = tenMH,
+                            MaMonHoc = maMH,
+                            SoTinChi = soChi,
+                        };
+                        List<MonHoc> listMonHoc = new List<MonHoc>()
+                        {
+                            monHoc
+                        };
+                        if(nienKhoaDb.MonHocs is null)
+                        {
+                            nienKhoaDb.MonHocs = listMonHoc;
+                        }
+                        else
+                        {
+                            nienKhoaDb.MonHocs.AddRange(listMonHoc);
+                        }
+                        context.SaveChanges();
+                    }
+                }
+            }
         }
 
         private static NienKhoa getNienKhoa(EdgeDriver driver, Context context)
@@ -49,12 +109,16 @@ namespace TimeTableBackend
                 throw new NullReferenceException("Khong lay duoc thong tin TKB");
             }
 
-            NienKhoa nienKhoaDb = context.NienKhoas.Where(h=>h.HocKy == hocKy).Where(n=>n.NamHoc == nienKhoa).FirstOrDefault();
-            if (nienKhoaDb is null)
+            NienKhoa nienKhoaCreated = createNewNienKhoa(context, hocKy, nienKhoa);
+            NienKhoa nienKhoaDb = context.NienKhoas
+                .Where(h => h.HocKy.Contains(nienKhoaCreated.HocKy))
+                .Where(n => n.NamHoc.Contains(nienKhoaCreated.NamHoc)).FirstOrDefault();
+            if(nienKhoaDb is null)
             {
-                nienKhoaDb = createNewNienKhoa(context,hocKy,nienKhoa);   
+                context.NienKhoas.Add(nienKhoaCreated);
+                context.SaveChanges();
+                return nienKhoaCreated;
             }
-
             return nienKhoaDb;
         }
 
@@ -76,11 +140,6 @@ namespace TimeTableBackend
                 string hocKyMoi = (int.Parse(hocKy) + 1).ToString();
                 nienKhoaDb.HocKy = hocKyMoi;
                 nienKhoaDb.NamHoc = nienKhoa;
-            }
-            context.NienKhoas.Add(nienKhoaDb);
-            if(context.SaveChanges() == 0)
-            {
-                throw new DbUpdateConcurrencyException("Co loi khi luu doi tuong xuong database");
             }
             return nienKhoaDb;
         }

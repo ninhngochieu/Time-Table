@@ -11,6 +11,6 @@ namespace TimeTableBackend.Models
         public int Id { get; set; }
         public string HocKy { get; set; }
         public string NamHoc{ get; set; }
-        public IList<MonHoc> ? MonHocs{ get; set; }
+        public List<MonHoc> ? MonHocs{ get; set; }
     }
 }

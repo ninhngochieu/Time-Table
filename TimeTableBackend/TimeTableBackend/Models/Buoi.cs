@@ -7,5 +7,6 @@
         public int BatDauLuc { get; set; }
         public int TietBatDau { get; set; }
         public int TietKetThuc { get; set; }
+        public string GiangVien { get; set; }
     }
 }

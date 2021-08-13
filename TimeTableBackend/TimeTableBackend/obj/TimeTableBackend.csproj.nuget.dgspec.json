@@ -14,7 +14,7 @@
         "outputPath": "/Users/hieuninh/Downloads/TimeTable/TimeTableBackend/TimeTableBackend/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/hieuninh/.config/NuGet/NuGet.Config"
+          "/Users/hieuninh/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
