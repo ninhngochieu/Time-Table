@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TimeTableBackend.Models;
 
 namespace TimeTableBackend.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20210813132213_Buoi-Them-Giang-Vien-Fix-1")]
+    partial class BuoiThemGiangVienFix1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,6 +40,9 @@ namespace TimeTableBackend.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("TietBatDau")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TietKetThuc")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");

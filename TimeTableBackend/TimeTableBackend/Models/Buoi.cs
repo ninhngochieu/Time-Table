@@ -6,7 +6,7 @@
         public int SoTiet { get; set; }
         public int BatDauLuc { get; set; }
         public int TietBatDau { get; set; }
-        public int TietKetThuc { get; set; }
         public string GiangVien { get; set; }
+        public string Phong { get; set; }
     }
 }

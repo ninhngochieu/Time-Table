@@ -13,6 +13,6 @@ namespace TimeTableBackend.Models
         public string Ten { get; set; }
         public string MaMonHoc { get; set; }
         public int SoTinChi { get; set; }
-        public IList<NhomMonHoc>? NhomMonHoc { get; set; }
+        public List<NhomMonHoc>? NhomMonHoc { get; set; }
     }
 }

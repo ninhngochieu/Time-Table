@@ -6,7 +6,6 @@ namespace TimeTableBackend.Models
     {
         public int Id { get; set; }
         public string NMH { get; set; }
-        public string Phong { get; set; }
-        public IList<Buoi> ? Buois{ get; set; }
+        public List<Buoi> ? Buois{ get; set; }
     }
 }
