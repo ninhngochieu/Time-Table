@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using TimeTableBackend.Models;
+using Newtonsoft.Json;
 
 namespace TimeTableBackend
 {
@@ -20,12 +21,15 @@ namespace TimeTableBackend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            string Version = "1";
             services.AddControllers();
             services.AddSwaggerGen(c=> {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API V1", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API V"+ Version, Version = "v1" });
             });
             services.AddEntityFrameworkSqlite().AddDbContext<Context>();
+            services.AddControllersWithViews().AddNewtonsoftJson(options =>
+               options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
