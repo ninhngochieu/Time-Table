@@ -18,4 +18,5 @@ export class MonHoc{
   maMonHoc: string;
   soTinChi: number;
   nhomMonHoc: NhomMonHoc[];
+  isActive = false;
 }

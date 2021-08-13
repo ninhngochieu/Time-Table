@@ -24,7 +24,7 @@ namespace TimeTableBackend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<NienKhoa>>> GetNienKhoas()
         {
-            return await _context.NienKhoas.ToListAsync();
+            return await _context.NienKhoas.Include(n=>n.MonHocs).ToListAsync();
         }
 
         // GET: api/NienKhoa/5

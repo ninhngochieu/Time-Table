@@ -1,8 +1,9 @@
 ﻿<Properties StartupConfiguration="{FF76D954-E95F-427D-91D4-C7CF286F6389}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="TimeTableBackend/Program.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="TimeTableBackend/Controllers/NienKhoaController.cs">
     <Files>
       <File FileName="TimeTableBackend/Startup.cs" Line="1" Column="1" />
-      <File FileName="TimeTableBackend/Program.cs" Line="85" Column="43" />
+      <File FileName="TimeTableBackend/Program.cs" Line="22" Column="20" />
+      <File FileName="TimeTableBackend/Controllers/NienKhoaController.cs" Line="27" Column="53" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -12,10 +13,11 @@
               <Node name="Dependencies" expanded="True">
                 <Node name="PackageDependencies" expanded="True" />
               </Node>
-              <Node name="Controllers" expanded="True" />
+              <Node name="Controllers" expanded="True">
+                <Node name="NienKhoaController.cs" selected="True" />
+              </Node>
               <Node name="Migrations" expanded="True" />
               <Node name="Models" expanded="True" />
-              <Node name="Program.cs" selected="True" />
             </Node>
           </Node>
         </State>
