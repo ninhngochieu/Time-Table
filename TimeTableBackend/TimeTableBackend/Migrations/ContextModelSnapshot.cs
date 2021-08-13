@@ -53,6 +53,9 @@ namespace TimeTableBackend.Migrations
                     b.Property<string>("MaMonHoc")
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("NienKhoaId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("SoTinChi")
                         .HasColumnType("INTEGER");
 
@@ -60,6 +63,8 @@ namespace TimeTableBackend.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("NienKhoaId");
 
                     b.ToTable("MonHocs");
                 });
@@ -86,11 +91,35 @@ namespace TimeTableBackend.Migrations
                     b.ToTable("NhomMonHocs");
                 });
 
+            modelBuilder.Entity("TimeTableBackend.Models.NienKhoa", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("HocKy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NamHoc")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("NienKhoas");
+                });
+
             modelBuilder.Entity("TimeTableBackend.Models.Buoi", b =>
                 {
                     b.HasOne("TimeTableBackend.Models.NhomMonHoc", null)
                         .WithMany("Buois")
                         .HasForeignKey("NhomMonHocId");
+                });
+
+            modelBuilder.Entity("TimeTableBackend.Models.MonHoc", b =>
+                {
+                    b.HasOne("TimeTableBackend.Models.NienKhoa", null)
+                        .WithMany("MonHocs")
+                        .HasForeignKey("NienKhoaId");
                 });
 
             modelBuilder.Entity("TimeTableBackend.Models.NhomMonHoc", b =>
@@ -108,6 +137,11 @@ namespace TimeTableBackend.Migrations
             modelBuilder.Entity("TimeTableBackend.Models.NhomMonHoc", b =>
                 {
                     b.Navigation("Buois");
+                });
+
+            modelBuilder.Entity("TimeTableBackend.Models.NienKhoa", b =>
+                {
+                    b.Navigation("MonHocs");
                 });
 #pragma warning restore 612, 618
         }

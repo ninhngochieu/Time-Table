@@ -157,3 +157,5 @@
 /Users/hieuninh/Downloads/TimeTable/TimeTableBackend/TimeTableBackend/bin/Debug/net5.0/Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 /Users/hieuninh/Downloads/TimeTable/TimeTableBackend/TimeTableBackend/bin/Debug/net5.0/Newtonsoft.Json.Bson.dll
 /Users/hieuninh/Downloads/TimeTable/TimeTableBackend/TimeTableBackend/bin/Debug/net5.0/Swashbuckle.AspNetCore.Newtonsoft.dll
+/Users/hieuninh/Downloads/TimeTable/TimeTableBackend/TimeTableBackend/bin/Debug/net5.0/WebDriver.dll
+/Users/hieuninh/Downloads/TimeTable/TimeTableBackend/TimeTableBackend/bin/Debug/net5.0/Microsoft.Edge.SeleniumTools.dll

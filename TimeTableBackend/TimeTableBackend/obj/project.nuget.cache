@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "21fRDt65OnLFEVGrkSGCvMZc76p/rIrWv9DyVgi3hkRt8MYVl/HmWv4q6SZpzP6rcArt3yEkauYgsdHKB+Eh/A==",
+  "dgSpecHash": "eE3SWLSydacmqnD2JQtrMfqkTQyFdB/u+34RwrT4ZF4zDkXfpFPOs6WNliAv3n6PAe6hL38xx1utzttJxnKG2w==",
   "success": true,
   "projectFilePath": "/Users/hieuninh/Downloads/TimeTable/TimeTableBackend/TimeTableBackend/TimeTableBackend.csproj",
   "expectedPackageFiles": [
@@ -23,6 +23,7 @@
     "/Users/hieuninh/.nuget/packages/microsoft.data.sqlclient.sni.runtime/2.0.1/microsoft.data.sqlclient.sni.runtime.2.0.1.nupkg.sha512",
     "/Users/hieuninh/.nuget/packages/microsoft.data.sqlite.core/5.0.9/microsoft.data.sqlite.core.5.0.9.nupkg.sha512",
     "/Users/hieuninh/.nuget/packages/microsoft.dotnet.platformabstractions/3.1.6/microsoft.dotnet.platformabstractions.3.1.6.nupkg.sha512",
+    "/Users/hieuninh/.nuget/packages/microsoft.edge.seleniumtools/3.141.2/microsoft.edge.seleniumtools.3.141.2.nupkg.sha512",
     "/Users/hieuninh/.nuget/packages/microsoft.entityframeworkcore/5.0.9/microsoft.entityframeworkcore.5.0.9.nupkg.sha512",
     "/Users/hieuninh/.nuget/packages/microsoft.entityframeworkcore.abstractions/5.0.9/microsoft.entityframeworkcore.abstractions.5.0.9.nupkg.sha512",
     "/Users/hieuninh/.nuget/packages/microsoft.entityframeworkcore.analyzers/5.0.9/microsoft.entityframeworkcore.analyzers.5.0.9.nupkg.sha512",
@@ -65,6 +66,8 @@
     "/Users/hieuninh/.nuget/packages/newtonsoft.json/12.0.2/newtonsoft.json.12.0.2.nupkg.sha512",
     "/Users/hieuninh/.nuget/packages/newtonsoft.json.bson/1.0.2/newtonsoft.json.bson.1.0.2.nupkg.sha512",
     "/Users/hieuninh/.nuget/packages/runtime.native.system/4.3.0/runtime.native.system.4.3.0.nupkg.sha512",
+    "/Users/hieuninh/.nuget/packages/selenium.webdriver/3.141.0/selenium.webdriver.3.141.0.nupkg.sha512",
+    "/Users/hieuninh/.nuget/packages/selenium.webdriver.msedgedriver/92.0.902.62/selenium.webdriver.msedgedriver.92.0.902.62.nupkg.sha512",
     "/Users/hieuninh/.nuget/packages/sqlitepclraw.bundle_e_sqlite3/2.0.4/sqlitepclraw.bundle_e_sqlite3.2.0.4.nupkg.sha512",
     "/Users/hieuninh/.nuget/packages/sqlitepclraw.core/2.0.4/sqlitepclraw.core.2.0.4.nupkg.sha512",
     "/Users/hieuninh/.nuget/packages/sqlitepclraw.lib.e_sqlite3/2.0.4/sqlitepclraw.lib.e_sqlite3.2.0.4.nupkg.sha512",

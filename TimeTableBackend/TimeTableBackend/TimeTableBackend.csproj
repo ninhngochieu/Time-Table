@@ -17,6 +17,10 @@
     <None Remove="Migrations\" />
     <None Remove="Microsoft.AspNetCore.Mvc.NewtonsoftJson" />
     <None Remove="Swashbuckle.AspNetCore.Newtonsoft" />
+    <None Remove="Selenium.WebDriver" />
+    <None Remove="Selenium.WebDriver.ChromeDriver" />
+    <None Remove="Microsoft.Edge.SeleniumTools" />
+    <None Remove="Selenium.WebDriver.MSEdgeDriver" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.5" />
@@ -31,6 +35,9 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.9" />
     <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="6.1.5" />
+    <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
+    <PackageReference Include="Microsoft.Edge.SeleniumTools" Version="3.141.2" />
+    <PackageReference Include="Selenium.WebDriver.MSEdgeDriver" Version="92.0.902.62" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
