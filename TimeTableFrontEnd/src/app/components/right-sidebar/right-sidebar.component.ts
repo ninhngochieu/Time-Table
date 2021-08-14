@@ -35,4 +35,14 @@ export class RightSidebarComponent implements OnInit {
     monhoc.isActive = !monhoc.isActive;
     this.tempMonHoc = this.tempMonHoc.filter(x=>x!==monhoc);
   }
+
+  sapXep() {
+    if(this.tempMonHoc.length === 0){
+      return;
+    }else {
+      this.rightSidebarService.postDanhSachMonHoc(this.tempMonHoc).subscribe(res => {
+        console.log(res);
+      });
+    }
+  }
 }

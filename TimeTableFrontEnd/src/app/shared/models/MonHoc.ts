@@ -3,7 +3,8 @@ class Buoi {
   soTiet: number;
   batDauLuc: number;
   tietBatDau: number;
-  tietKetThuc: number;
+  giangVien: string;
+  phong: string;
 }
 
 class NhomMonHoc {

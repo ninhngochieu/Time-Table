@@ -13,4 +13,8 @@ export class RightSidebarService {
   getAllMonHoc(): Observable<any> {
     return this.httpClient.get('https://localhost:5001/api/MonHoc');
   }
+
+  postDanhSachMonHoc(tempMonHoc: MonHoc[]) {
+    return this.httpClient.post('https://localhost:5001/api/MonHoc/SapXepDanhSachMonHoc',tempMonHoc);
+  }
 }
