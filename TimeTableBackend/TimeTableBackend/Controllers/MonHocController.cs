@@ -116,7 +116,53 @@ namespace TimeTableBackend.Controllers
                 nhomMonHocs.AddRange(nhomMonHocEx);
             }
             List<List<NhomMonHoc>> list = SapXepMonHoc(nhomMonHocs);
+            list.RemoveAll(p =>
+            {
+                if (chongCheoTKB(p))
+                {
+                    return true;
+                }
+                return false;
+            });
             return list;
+        }
+
+        private bool chongCheoTKB(List<NhomMonHoc> nhomMonHocs)
+        {
+            List<Buoi> buois = new List<Buoi>();
+            nhomMonHocs.ForEach(tkb=>
+            {
+                tkb.Buois.ForEach(buoi =>
+                {
+                    Buoi buoiMoi = _context.Buois.Where(i => i.Id == buoi.Id).Include(n => n.NhomMonHoc).FirstOrDefault();
+                    buois.Add(buoiMoi);
+                });
+            });
+            for(int i = 0; i < buois.Count; i++)
+            {
+                for(int j = i + 1;j<buois.Count - 1; j++)
+                {
+                    if(buois[i].NhomMonHocId == buois[j].NhomMonHocId)
+                    {
+                        //Dam bao 2 buoi trong cung 1 nhom khong gap nhau
+                    }
+                    else
+                    {
+                        //Kiem tra thu may
+                        if (buois[i].BatDauLuc == buois[j].BatDauLuc)
+                        {
+                            //Co trung tiet bat dau hay khong
+                            if(buois[i].TietBatDau == buois[j].TietBatDau)
+                            {
+                                return true;
+                            }
+                            //Kiem tra xem co bi de tiet hay khong
+                            //else if 
+                        }
+                    }
+                }
+            }
+            return false;
         }
 
         private List<List<NhomMonHoc>> SapXepMonHoc(List<NhomMonHoc> nhomMonHocs)

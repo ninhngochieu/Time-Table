@@ -8,5 +8,8 @@
         public int TietBatDau { get; set; }
         public string GiangVien { get; set; }
         public string Phong { get; set; }
+
+        public int NhomMonHocId { get; set; }
+        public NhomMonHoc NhomMonHoc { get; set; }
     }
 }

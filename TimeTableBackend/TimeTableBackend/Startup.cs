@@ -29,6 +29,13 @@ namespace TimeTableBackend
             services.AddEntityFrameworkSqlite().AddDbContext<Context>();
             services.AddControllersWithViews().AddNewtonsoftJson(options =>
                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+            services.AddCors(c => {
+                c.AddPolicy("TCAPolicy", builder => {
+                    builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+                });
+            });
 
         }
 
@@ -55,6 +62,8 @@ namespace TimeTableBackend
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
                 c.RoutePrefix = string.Empty;
             });
+            app.UseCors("TCAPolicy");
+
         }
     }
 }
