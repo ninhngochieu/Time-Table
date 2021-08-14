@@ -6,6 +6,9 @@ namespace TimeTableBackend.Models
     {
         public int Id { get; set; }
         public string NMH { get; set; }
+
+        public int MonHocId { get; set; }
+        public MonHoc MonHoc { get; set; }
         public List<Buoi> ? Buois{ get; set; }
     }
 }

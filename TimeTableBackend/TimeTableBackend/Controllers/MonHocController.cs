@@ -24,7 +24,10 @@ namespace TimeTableBackend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MonHoc>>> GetMonHocs()
         {
-            return await _context.MonHocs.Include(n=>n.NhomMonHoc).ThenInclude(n=>n.Buois).ToListAsync();
+            return await _context.MonHocs
+                .Include(n=>n.NhomMonHoc)
+                .ThenInclude(n=>n.Buois)
+                .ToListAsync();
         }
 
         // GET: api/MonHoc/5
