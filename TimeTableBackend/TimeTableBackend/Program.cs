@@ -25,7 +25,16 @@ namespace TimeTableBackend
 
         private static void RunSelenium()
         {
+            //Reset DB
             Context context = new Context();
+            List<Buoi> buois = context.Buois.ToList();
+            context.Buois.RemoveRange(buois);
+            List<NhomMonHoc> nhomMonHocs = context.NhomMonHocs.ToList();
+            context.NhomMonHocs.RemoveRange(nhomMonHocs);
+            List<MonHoc> monHocs = context.MonHocs.ToList();
+            context.MonHocs.RemoveRange(monHocs);
+            context.SaveChanges();
+            //Crawl
             var options = new EdgeOptions();
             options.UseChromium = true;
             var driver = new EdgeDriver(options);

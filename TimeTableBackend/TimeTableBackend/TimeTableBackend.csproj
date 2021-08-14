@@ -21,6 +21,7 @@
     <None Remove="Selenium.WebDriver.ChromeDriver" />
     <None Remove="Microsoft.Edge.SeleniumTools" />
     <None Remove="Selenium.WebDriver.MSEdgeDriver" />
+    <None Remove="Microsoft.AspNet.WebApi.Cors" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.5" />
@@ -38,6 +39,7 @@
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
     <PackageReference Include="Microsoft.Edge.SeleniumTools" Version="3.141.2" />
     <PackageReference Include="Selenium.WebDriver.MSEdgeDriver" Version="92.0.902.62" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Cors" Version="5.2.7" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />

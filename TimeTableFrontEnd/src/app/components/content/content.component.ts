@@ -17,18 +17,23 @@ export class ContentComponent implements OnInit {
     this.contentService.tkbSubject.subscribe(res =>{
       this.selectedTKB = res;
       console.log(res);
-      for (const tkb of this.selectedTKB) {
-        const color = '#' + Math.floor(Math.random() * 16777215).toString(16);
-        console.log(tkb);
-        for (const buoi of tkb.buois) {
-          for (let i = buoi.tietBatDau; i <buoi.tietBatDau+buoi.soTiet ; i++) {
-            const index = buoi.batDauLuc + '' +i;
-            document.getElementById(index).style.background = color;
-            console.log(index);
-          }
+      this.contentService.resetTkb();
+      this.decorateTkb();
+    });
+  }
+
+  private decorateTkb() {
+    for (const tkb of this.selectedTKB) {
+      const color = '#' + Math.floor(Math.random() * 16777215).toString(16);
+      console.log(tkb);
+      for (const buoi of tkb.buois) {
+        for (let i = buoi.tietBatDau; i <buoi.tietBatDau+buoi.soTiet ; i++) {
+          const index = buoi.batDauLuc + '' +i;
+          document.getElementById(index).style.background = color;
+          console.log(index);
         }
       }
-    });
+    }
   }
 
 }

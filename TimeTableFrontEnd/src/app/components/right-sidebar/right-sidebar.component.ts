@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MonHoc} from '../../shared/models/MonHoc';
 import {RightSidebarService} from './right-sidebar.service';
+import {ContentService} from "../content/content.service";
 
 @Component({
   selector: 'app-right-sidebar',
@@ -12,7 +13,7 @@ export class RightSidebarComponent implements OnInit {
   keyword = '';
   tempMonHoc: MonHoc[] = [];
 
-  constructor(private rightSidebarService: RightSidebarService) { }
+  constructor(private rightSidebarService: RightSidebarService, private contentService: ContentService) { }
 
   ngOnInit(): void {
     this.rightSidebarService.getAllMonHoc().subscribe((monHocs: MonHoc[]) => {
@@ -41,6 +42,7 @@ export class RightSidebarComponent implements OnInit {
       return;
     }else {
       this.rightSidebarService.postDanhSachMonHoc(this.tempMonHoc);
+      this.contentService.resetTkb();
     }
   }
 }
