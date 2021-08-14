@@ -1,4 +1,4 @@
-class Buoi {
+export class Buoi {
   id: number;
   soTiet: number;
   batDauLuc: number;
@@ -7,10 +7,13 @@ class Buoi {
   phong: string;
 }
 
-class NhomMonHoc {
+export class NhomMonHoc {
   id: string;
   phong: string;
-  buoi: Buoi[];
+  nmh: string;
+  monHocId: number;
+  monHoc: MonHoc;
+  buois: Buoi[];
 }
 
 export class MonHoc{

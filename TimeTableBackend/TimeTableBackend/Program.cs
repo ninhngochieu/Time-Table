@@ -127,7 +127,7 @@ namespace TimeTableBackend
                                 numThu = 6;
                                 break;
                             case "Bảy":
-                                numThu = 8;
+                                numThu = 7;
                                 break;
                             default:
                                 numThu = 0;

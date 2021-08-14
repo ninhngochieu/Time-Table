@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {RightSidebarService} from '../right-sidebar/right-sidebar.service';
+import {ContentService} from './content.service';
+import {NhomMonHoc} from '../../shared/models/MonHoc';
 
 @Component({
   selector: 'app-content',
@@ -6,10 +9,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./content.component.scss']
 })
 export class ContentComponent implements OnInit {
+  selectedTKB: NhomMonHoc[] = [];
 
-  constructor() { }
+  constructor(private contentService: ContentService) { }
 
   ngOnInit(): void {
+    this.contentService.tkbSubject.subscribe(res =>{
+      this.selectedTKB = res;
+      console.log(res);
+      for (const tkb of this.selectedTKB) {
+        const color = '#' + Math.floor(Math.random() * 16777215).toString(16);
+        console.log(tkb);
+        for (const buoi of tkb.buois) {
+          for (let i = buoi.tietBatDau; i <buoi.tietBatDau+buoi.soTiet ; i++) {
+            const index = buoi.batDauLuc + '' +i;
+            document.getElementById(index).style.background = color;
+            console.log(index);
+          }
+        }
+      }
+    });
   }
 
 }

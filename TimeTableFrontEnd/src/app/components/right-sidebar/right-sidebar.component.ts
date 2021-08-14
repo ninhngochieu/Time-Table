@@ -40,9 +40,7 @@ export class RightSidebarComponent implements OnInit {
     if(this.tempMonHoc.length === 0){
       return;
     }else {
-      this.rightSidebarService.postDanhSachMonHoc(this.tempMonHoc).subscribe(res => {
-        console.log(res);
-      });
+      this.rightSidebarService.postDanhSachMonHoc(this.tempMonHoc);
     }
   }
 }

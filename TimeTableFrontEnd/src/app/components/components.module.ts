@@ -8,6 +8,7 @@ import {ContentComponent} from './content/content.component';
 import { ComponentsComponent } from './components.component';
 import { RightSidebarPipe } from './right-sidebar/right-sidebar.pipe';
 import {FormsModule} from "@angular/forms";
+import { LeftSidebarPipe } from './left-sidebar/left-sidebar.pipe';
 
 
 
@@ -20,7 +21,8 @@ import {FormsModule} from "@angular/forms";
     ContentComponent,
     FooterComponent,
     ComponentsComponent,
-    RightSidebarPipe
+    RightSidebarPipe,
+    LeftSidebarPipe
   ],
   exports: [
     HeaderComponent,

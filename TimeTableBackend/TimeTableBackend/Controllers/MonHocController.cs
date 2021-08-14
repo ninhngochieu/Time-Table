@@ -118,6 +118,7 @@ namespace TimeTableBackend.Controllers
             List<List<NhomMonHoc>> list = SapXepMonHoc(nhomMonHocs);
             list.RemoveAll(p =>
             {
+                return false;
                 if (chongCheoTKB(p))
                 {
                     return true;
@@ -156,6 +157,15 @@ namespace TimeTableBackend.Controllers
                             {
                                 return true;
                             }
+                            else if(buois[i].BatDauLuc < buois[j].BatDauLuc)
+                            {
+                                if (buois[i].BatDauLuc + buois[i].SoTiet - 1 >= buois[j].BatDauLuc) return true;
+                            }
+                            else
+                            {
+                                if (buois[j].BatDauLuc + buois[j].SoTiet - 1 >= buois[i].BatDauLuc) return true;
+                            }
+
                             //Kiem tra xem co bi de tiet hay khong
                             //else if 
                         }
