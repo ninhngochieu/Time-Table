@@ -20,7 +20,154 @@ namespace TimeTableBackend
         {
             //RunSelenium();
             CreateHostBuilder(args).Build().Run();
+            //Context context = new Context();
+            //context.NienKhoas.Remove(context.NienKhoas.First());
+            //context.SaveChanges();
+            //RunSeleniumBK();
+        }
 
+        private static void RunSeleniumBK()
+        {
+            var options = new EdgeOptions();
+            options.UseChromium = true;
+            var driver = new EdgeDriver(options);
+            driver.Url = "http://dk4.dut.udn.vn/";
+            driver.Navigate();
+
+            Context context = new Context();
+
+            NienKhoa nienKhoa = context.NienKhoas.Where(s => s.HocKy == "Bach Khoa Co Khi").Include(s=>s.MonHocs).FirstOrDefault();
+            if(nienKhoa is not null)
+            {
+                context.NienKhoas.Remove(nienKhoa);
+                context.SaveChanges();
+            }
+            nienKhoa = new NienKhoa
+            {
+                HocKy = "Bach Khoa Co Khi",
+                NamHoc = "2021",
+                MonHocs = new List<MonHoc>()
+            };
+            context.NienKhoas.Add(nienKhoa);
+            context.SaveChanges();
+
+            var lopHocPhan = driver.FindElementByXPath("//*[@id=\"NavigationMenu\"]/ul/li[3]");
+            lopHocPhan.Click();
+
+            var danhSachLop = driver.FindElementById("MainContent_BTRefresh1");
+            danhSachLop.Click();
+
+            Thread.Sleep(2000);
+
+            var table = driver.FindElementById("MainContent_Grid1");
+            ReadOnlyCollection<IWebElement> danhSachMonHoc = table.FindElements(By.TagName("tr"));
+            for (int i = 1; i < danhSachMonHoc.Count - 1; i++)
+            {
+                ReadOnlyCollection<IWebElement> monHoc = danhSachMonHoc[i].FindElements(By.TagName("td"));
+                string tenMocHoc = monHoc[2].Text;
+                string soChi = monHoc[3].Text;
+                MonHoc monHocCu = context.MonHocs.Where(s=>s.Ten ==tenMocHoc).Include(s=>s.NhomMonHoc).FirstOrDefault();
+                if (monHoc[5].Text!=" ")
+                {
+                    if (monHocCu is null)
+                    {
+                        //Tao moi
+                        monHocCu = new MonHoc
+                        {
+                            MaMonHoc = tenMocHoc,
+                            Ten = tenMocHoc,
+                            SoTinChi = int.Parse(MathF.Round(float.Parse(soChi)).ToString()),
+                            NhomMonHoc = new List<NhomMonHoc>()
+                        };
+
+                        string giangVien = monHoc[4].Text;
+
+                        nienKhoa.MonHocs.Add(monHocCu);
+                        NhomMonHoc nhomMonHoc = new NhomMonHoc
+                        {
+                            NMH = giangVien,
+                            Buois = new List<Buoi>()
+                        };
+                        monHocCu.NhomMonHoc.Add(nhomMonHoc);
+
+                        Buoi buoi = new Buoi
+                        {
+                            BatDauLuc = int.Parse(Regex.Match(monHoc[5].Text, @"\d+").Value),
+                            TietBatDau = int.Parse(Regex.Match(monHoc[5].Text, @"\d+-\d+").Value.Split("-")[0]),
+                            GiangVien = giangVien,
+                            Phong = "",
+                            SoTiet = int.Parse(Regex.Match(monHoc[5].Text, @"\d+-\d+").Value.Split("-")[1]) - int.Parse(Regex.Match(monHoc[5].Text, @"\d+-\d+").Value.Split("-")[0]) + 1
+                        };
+                        nhomMonHoc.Buois.Add(buoi);
+
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        string giangVien = monHoc[4].Text;
+                        NhomMonHoc nhomMonHoc = new NhomMonHoc
+                        {
+                            NMH = giangVien,
+                            Buois = new List<Buoi>()
+                        };
+                        monHocCu.NhomMonHoc.Add(nhomMonHoc);
+
+                        Buoi buoi = new Buoi
+                        {
+                            BatDauLuc = int.Parse(Regex.Match(monHoc[5].Text, @"\d+").Value),
+                            TietBatDau = int.Parse(Regex.Match(monHoc[5].Text, @"\d+-\d+").Value.Split("-")[0]),
+                            GiangVien = giangVien,
+                            Phong = "",
+                            SoTiet = int.Parse(Regex.Match(monHoc[5].Text, @"\d+-\d+").Value.Split("-")[1]) - int.Parse(Regex.Match(monHoc[5].Text, @"\d+-\d+").Value.Split("-")[0]) + 1
+                        };
+                        nhomMonHoc.Buois.Add(buoi);
+
+                        context.SaveChanges();
+                        //string giangVien = monHoc[4].Text;
+                        ////Kiem tra xem co giao vien chua
+                        //NhomMonHoc nhomMonHoc = context.NhomMonHocs.Where(s => s.MonHocId == monHocCu.Id).Where(s => s.NMH == giangVien).Include(s => s.Buois).FirstOrDefault();
+                        //if (nhomMonHoc is null)
+                        //{
+                        //    nhomMonHoc = new NhomMonHoc
+                        //    {
+                        //        NMH = giangVien,
+                        //        Buois = new List<Buoi>()
+                        //    };
+                        //    monHocCu.NhomMonHoc.Add(nhomMonHoc);
+
+                        //    Buoi buoi = new Buoi
+                        //    {
+                        //        BatDauLuc = int.Parse(Regex.Match(monHoc[5].Text, @"\d+").Value),
+                        //        TietBatDau = int.Parse(Regex.Match(monHoc[5].Text, @"\d+-\d+").Value.Split("-")[0]),
+                        //        GiangVien = giangVien,
+                        //        Phong = "",
+                        //        SoTiet = int.Parse(Regex.Match(monHoc[5].Text, @"\d+-\d+").Value.Split("-")[1]) - int.Parse(Regex.Match(monHoc[5].Text, @"\d+-\d+").Value.Split("-")[0]) + 1
+                        //    };
+                        //    nhomMonHoc.Buois.Add(buoi);
+
+                        //    context.SaveChanges();
+                        //}
+                        //else
+                        //{
+                        //    Buoi buoi = new Buoi
+                        //    {
+                        //        BatDauLuc = int.Parse(Regex.Match(monHoc[5].Text, @"\d+").Value),
+                        //        TietBatDau = int.Parse(Regex.Match(monHoc[5].Text, @"\d+-\d+").Value.Split("-")[0]),
+                        //        GiangVien = giangVien,
+                        //        Phong = "",
+                        //        SoTiet = int.Parse(Regex.Match(monHoc[5].Text, @"\d+-\d+").Value.Split("-")[1]) - int.Parse(Regex.Match(monHoc[5].Text, @"\d+-\d+").Value.Split("-")[0]) + 1
+                        //    };
+                        //    nhomMonHoc.Buois.Add(buoi);
+                        //    context.SaveChanges();
+
+                        //    //Console.WriteLine(Regex.Match(monHoc[5].Text, @"\d+").Value);
+                        //    //Console.WriteLine(Regex.Match(monHoc[5].Text, @"\d+-\d+").Value.Split("-")[0]);
+                        //}
+                    }
+
+                }
+                Console.WriteLine(danhSachMonHoc[i].Text);
+            }
         }
 
         private static void RunSelenium()

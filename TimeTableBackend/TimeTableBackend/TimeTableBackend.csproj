@@ -22,6 +22,8 @@
     <None Remove="Microsoft.Edge.SeleniumTools" />
     <None Remove="Selenium.WebDriver.MSEdgeDriver" />
     <None Remove="Microsoft.AspNet.WebApi.Cors" />
+    <None Remove="System.Data.SQLite" />
+    <None Remove="Microsoft.EntityFrameworkCore.Proxies" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.5" />
@@ -39,7 +41,8 @@
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
     <PackageReference Include="Microsoft.Edge.SeleniumTools" Version="3.141.2" />
     <PackageReference Include="Selenium.WebDriver.MSEdgeDriver" Version="92.0.902.62" />
-    <PackageReference Include="Microsoft.AspNet.WebApi.Cors" Version="5.2.7" />
+    <PackageReference Include="System.Data.SQLite" Version="1.0.114.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.9" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />

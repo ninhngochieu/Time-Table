@@ -105,12 +105,12 @@ namespace TimeTableBackend.Controllers
             return _context.MonHocs.Any(e => e.Id == id);
         }
         [HttpPost("SapXepDanhSachMonHoc")]
-        public async Task<ActionResult<List<List<NhomMonHoc>>>> PostDanhSachMonHoc(List<MonHoc> dsMonHoc)
+        public ActionResult<List<List<NhomMonHoc>>> PostDanhSachMonHoc(List<MonHoc> dsMonHoc)
         {
 
             List<NhomMonHoc> nhomMonHocs = new List<NhomMonHoc>();
             List<List<NhomMonHoc>> listNhomMonHocs = new List<List<NhomMonHoc>>();
-            foreach(var monhoc in dsMonHoc)
+            foreach (var monhoc in dsMonHoc)
             {
                 List<NhomMonHoc> nhomMonHocEx = _context.MonHocs.Where(i => i.Id == monhoc.Id).Include(n => n.NhomMonHoc).ThenInclude(s => s.Buois).FirstOrDefault().NhomMonHoc.ToList();
                 nhomMonHocs.AddRange(nhomMonHocEx);
@@ -118,7 +118,7 @@ namespace TimeTableBackend.Controllers
             List<List<NhomMonHoc>> list = SapXepMonHoc(nhomMonHocs);
             list.RemoveAll(p =>
             {
-                return false;
+                //return false;
                 if (chongCheoTKB(p))
                 {
                     return true;

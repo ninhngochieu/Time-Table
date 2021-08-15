@@ -8,7 +8,7 @@ namespace TimeTableBackend.Models
         public string NMH { get; set; }
 
         public int MonHocId { get; set; }
-        public MonHoc MonHoc { get; set; }
-        public List<Buoi> ? Buois{ get; set; }
+        public virtual MonHoc MonHoc { get; set; }
+        public virtual List<Buoi> ? Buois{ get; set; }
     }
 }

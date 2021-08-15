@@ -38,10 +38,6 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
-            "Microsoft.AspNet.WebApi.Cors": {
-              "target": "Package",
-              "version": "[5.2.7, )"
-            },
             "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
               "target": "Package",
               "version": "[5.0.9, )"
@@ -51,6 +47,10 @@
               "version": "[3.141.2, )"
             },
             "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.9, )"
+            },
+            "Microsoft.EntityFrameworkCore.Proxies": {
               "target": "Package",
               "version": "[5.0.9, )"
             },
@@ -91,6 +91,10 @@
             "Swashbuckle.AspNetCore.Newtonsoft": {
               "target": "Package",
               "version": "[6.1.5, )"
+            },
+            "System.Data.SQLite": {
+              "target": "Package",
+              "version": "[1.0.114.4, )"
             }
           },
           "imports": [

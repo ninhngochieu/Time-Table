@@ -13,6 +13,11 @@ namespace TimeTableBackend.Models
         public string Ten { get; set; }
         public string MaMonHoc { get; set; }
         public int SoTinChi { get; set; }
-        public List<NhomMonHoc>? NhomMonHoc { get; set; }
+
+
+        public virtual List<NhomMonHoc>? NhomMonHoc { get; set; }
+
+        public int NienKhoaId { get; set; }
+        public virtual NienKhoa NienKhoa { get; set; }
     }
 }

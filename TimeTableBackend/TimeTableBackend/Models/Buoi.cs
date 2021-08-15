@@ -10,6 +10,6 @@
         public string Phong { get; set; }
 
         public int NhomMonHocId { get; set; }
-        public NhomMonHoc NhomMonHoc { get; set; }
+        public virtual NhomMonHoc NhomMonHoc { get; set; }
     }
 }
