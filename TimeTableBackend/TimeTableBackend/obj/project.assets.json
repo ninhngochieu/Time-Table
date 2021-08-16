@@ -10136,19 +10136,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\hiutd\\.nuget\\packages\\": {}
+    "/Users/hieuninh/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\hiutd\\OneDrive\\Documents\\GitHub\\Time-Table\\TimeTableBackend\\TimeTableBackend\\TimeTableBackend.csproj",
+      "projectUniqueName": "/Users/hieuninh/Downloads/TimeTable/TimeTableBackend/TimeTableBackend/TimeTableBackend.csproj",
       "projectName": "TimeTableBackend",
-      "projectPath": "C:\\Users\\hiutd\\OneDrive\\Documents\\GitHub\\Time-Table\\TimeTableBackend\\TimeTableBackend\\TimeTableBackend.csproj",
-      "packagesPath": "C:\\Users\\hiutd\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\hiutd\\OneDrive\\Documents\\GitHub\\Time-Table\\TimeTableBackend\\TimeTableBackend\\obj\\",
+      "projectPath": "/Users/hieuninh/Downloads/TimeTable/TimeTableBackend/TimeTableBackend/TimeTableBackend.csproj",
+      "packagesPath": "/Users/hieuninh/.nuget/packages/",
+      "outputPath": "/Users/hieuninh/Downloads/TimeTable/TimeTableBackend/TimeTableBackend/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\hiutd\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/Users/hieuninh/.config/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
@@ -10249,7 +10249,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.400/RuntimeIdentifierGraph.json"
       }
     }
   }
