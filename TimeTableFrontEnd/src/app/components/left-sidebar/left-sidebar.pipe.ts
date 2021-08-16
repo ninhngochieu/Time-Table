@@ -9,7 +9,7 @@ export class LeftSidebarPipe implements PipeTransform {
   transform(value: NhomMonHoc[] ): unknown {
     let name = '';
     value.forEach((x: NhomMonHoc)=>{
-        name+=  x.monHoc.maMonHoc+'-'+x.id + '/';
+        name+=  x.monHoc.maMonHoc+'-'+x.nmh + '/';
     });
     return name;
   }

@@ -157,13 +157,13 @@ namespace TimeTableBackend.Controllers
                             {
                                 return true;
                             }
-                            else if(buois[i].BatDauLuc < buois[j].BatDauLuc)
+                            else if(buois[i].TietBatDau < buois[j].TietBatDau)
                             {
-                                if (buois[i].BatDauLuc + buois[i].SoTiet - 1 >= buois[j].BatDauLuc) return true;
+                                if (buois[i].TietBatDau + buois[i].SoTiet - 1 >= buois[j].TietBatDau) return true;
                             }
                             else
                             {
-                                if (buois[j].BatDauLuc + buois[j].SoTiet - 1 >= buois[i].BatDauLuc) return true;
+                                if (buois[j].TietBatDau + buois[j].SoTiet - 1 >= buois[i].TietBatDau) return true;
                             }
 
                             //Kiem tra xem co bi de tiet hay khong
