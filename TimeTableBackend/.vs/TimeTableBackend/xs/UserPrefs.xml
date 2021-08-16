@@ -1,9 +1,11 @@
 ﻿<Properties StartupConfiguration="{FF76D954-E95F-427D-91D4-C7CF286F6389}|Default">
   <MonoDevelop.Ide.Workbench ActiveDocument="TimeTableBackend/Program.cs">
     <Files>
+      <File FileName="TimeTableBackend/Controllers/NhomMonHocController.cs" Line="21" Column="10" />
+      <File FileName="TimeTableBackend/Controllers/MonHocController.cs" />
+      <File FileName="TimeTableBackend/Startup.cs" />
+      <File FileName="TimeTableBackend/Program.cs" Line="95" Column="1" />
       <File FileName="TimeTableBackend/Models/MonHoc.cs" Line="1" Column="1" />
-      <File FileName="TimeTableBackend/Controllers/MonHocController.cs" Line="125" Column="18" />
-      <File FileName="TimeTableBackend/Program.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">

@@ -23,7 +23,277 @@ namespace TimeTableBackend
             //Context context = new Context();
             //context.NienKhoas.Remove(context.NienKhoas.First());
             //context.SaveChanges();
+            //RunSeleniumSGU();
             //RunSeleniumBK();
+        }
+
+        private static void RunSeleniumSGU()
+        {
+            Context context = new Context();
+
+            NienKhoa nienKhoa = context.NienKhoas.Where(s => s.HocKy == "Bach Khoa Co Khi").Include(s => s.MonHocs).FirstOrDefault();
+            if (nienKhoa is not null)
+            {
+                context.NienKhoas.Remove(nienKhoa);
+                context.SaveChanges();
+            }
+
+            NienKhoa nienKhoaSGU = context.NienKhoas.Where(s => s.HocKy == "SGU").Include(s => s.MonHocs).FirstOrDefault();
+            if (nienKhoaSGU is not null)
+            {
+                context.NienKhoas.Remove(nienKhoaSGU);
+                context.SaveChanges();
+            }
+
+            nienKhoaSGU = new NienKhoa
+            {
+                HocKy = "SGU",
+                NamHoc = "2021",
+                MonHocs = new List<MonHoc>()
+            };
+            context.NienKhoas.Add(nienKhoaSGU);
+            context.SaveChanges();
+
+            var options = new EdgeOptions();
+            options.UseChromium = true;
+            var driver = new EdgeDriver(options);
+            driver.Url = "http://thongtindaotao.sgu.edu.vn/";
+            driver.Navigate();
+
+            var username = driver.FindElementById("ctl00_ContentPlaceHolder1_ctl00_ucDangNhap_txtTaiKhoa");
+            username.SendKeys("3118410087");
+
+            var password = driver.FindElementById("ctl00_ContentPlaceHolder1_ctl00_ucDangNhap_txtMatKhau");
+            password.SendKeys("Anhducjav123");
+
+            var buttonLogin = driver.FindElementById("ctl00_ContentPlaceHolder1_ctl00_ucDangNhap_btnDangNhap");
+            buttonLogin.Click();
+
+            var dkmh = driver.FindElementById("ctl00_menu_lblDangKyMonHoc");
+            dkmh.Click();
+
+            Thread.Sleep(500);
+
+            var locDk = driver.FindElementById("selectDKLoc");
+            locDk.Click();
+
+            var chonKhoa = driver.FindElementByXPath("//*[@id=\"selectDKLoc\"]/option[2]");
+            chonKhoa.Click();
+
+            var elementKhoa = driver.FindElementById("selectKhoa");
+            var danhSachKhoa = elementKhoa.FindElements(By.TagName("option"));
+
+            foreach(var khoa in danhSachKhoa)
+            {
+                khoa.Click();
+                Thread.Sleep(1000);
+                var bangHocPhan = driver.FindElementById("divTDK");
+                var dsHocPhan = bangHocPhan.FindElements(By.TagName("tr"));
+                foreach(var hocPhan in dsHocPhan)
+                {
+                    Console.WriteLine(hocPhan.Text);
+                    var column = hocPhan.FindElements(By.TagName("td"));
+                    string maMh = column[1].Text;
+                    string tenMh = column[2].Text;
+                    string soTinChi = column[5].Text;
+                    string nmh = column[3].Text;
+                    MonHoc monHoc = context.MonHocs.Where(s => s.MaMonHoc == maMh).FirstOrDefault();
+                    if(monHoc is null)
+                    {
+                        monHoc = new MonHoc
+                        {
+                            MaMonHoc = maMh,
+                            Ten = tenMh,
+                            SoTinChi = int.Parse(soTinChi),
+                            NhomMonHoc = new List<NhomMonHoc>()
+                        };
+                        nienKhoaSGU.MonHocs.Add(monHoc);
+
+                        NhomMonHoc nhomMonHoc = new NhomMonHoc
+                        {
+                            NMH = nmh,
+                            Buois = new List<Buoi>()
+                        };
+                        monHoc.NhomMonHoc.Add(nhomMonHoc);
+
+                        ReadOnlyCollection<IWebElement> dsThu= column[11].FindElements(By.TagName("div"));
+                        for(int i = 0; i < dsThu.Count; i += 2)
+                        {
+                            int numThu = 0;
+                            switch (dsThu[i].Text)
+                            {
+                                case "Hai":
+                                    numThu = 2;
+                                    break;
+                                case "Ba":
+                                    numThu = 3;
+                                    break;
+                                case "Tư":
+                                    numThu = 4;
+                                    break;
+                                case "Năm":
+                                    numThu = 5;
+                                    break;
+                                case "Sáu":
+                                    numThu = 6;
+                                    break;
+                                case "Bảy":
+                                    numThu = 7;
+                                    break;
+                                default:
+                                    numThu = 0;
+                                    break;
+                            }
+                            Buoi buoi = new Buoi
+                            {
+                                BatDauLuc = numThu
+                            };
+                            nhomMonHoc.Buois.Add(buoi);
+                        }
+
+                        ReadOnlyCollection<IWebElement> dsTietBatDau = column[12].FindElements(By.TagName("div"));
+                        for (int i = 0; i < dsTietBatDau.Count; i += 2)
+                        {
+                            string tietBatDau = dsTietBatDau[i].Text;
+                            if(i%2 == 0)
+                            {
+                                nhomMonHoc.Buois[i / 2].TietBatDau = int.Parse(tietBatDau);
+                            }
+                        }
+
+                        ReadOnlyCollection<IWebElement> dsSoTiet = column[13].FindElements(By.TagName("div"));
+                        for (int i = 0; i < dsSoTiet.Count; i += 2)
+                        {
+                            string soTiet = dsSoTiet[i].Text;
+                            if (i % 2 == 0)
+                            {
+                                nhomMonHoc.Buois[i / 2].SoTiet = int.Parse(soTiet);
+
+                            }
+
+                        }
+
+                        ReadOnlyCollection<IWebElement> dsPhong = column[14].FindElements(By.TagName("div"));
+                        for (int i = 0; i < dsPhong.Count; i += 2)
+                        {
+                            string phong = dsPhong[i].Text;
+                            if (i % 2 == 0)
+                            {
+                                nhomMonHoc.Buois[i / 2].Phong = phong;
+
+                            }
+
+                        }
+
+                        ReadOnlyCollection<IWebElement> dsGiangVien = column[15].FindElements(By.TagName("div"));
+                        for (int i = 0; i < dsGiangVien.Count; i += 2)
+                        {
+                            string giangVien = dsGiangVien[i].Text;
+                            if (i % 2 == 0)
+                            {
+                                nhomMonHoc.Buois[i / 2].GiangVien = giangVien;
+
+                            }
+
+                        }
+
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        NhomMonHoc nhomMonHoc = new NhomMonHoc
+                        {
+                            NMH = nmh,
+                            Buois = new List<Buoi>()
+                        };
+                        monHoc.NhomMonHoc.Add(nhomMonHoc);
+
+                        ReadOnlyCollection<IWebElement> dsThu = column[11].FindElements(By.TagName("div"));
+                        for (int i = 0; i < dsThu.Count; i += 2)
+                        {
+                            int numThu = 0;
+                            switch (dsThu[i].Text)
+                            {
+                                case "Hai":
+                                    numThu = 2;
+                                    break;
+                                case "Ba":
+                                    numThu = 3;
+                                    break;
+                                case "Tư":
+                                    numThu = 4;
+                                    break;
+                                case "Năm":
+                                    numThu = 5;
+                                    break;
+                                case "Sáu":
+                                    numThu = 6;
+                                    break;
+                                case "Bảy":
+                                    numThu = 7;
+                                    break;
+                                default:
+                                    numThu = 0;
+                                    break;
+                            }
+                            Buoi buoi = new Buoi
+                            {
+                                BatDauLuc = numThu
+                            };
+                            nhomMonHoc.Buois.Add(buoi);
+                        }
+
+                        ReadOnlyCollection<IWebElement> dsTietBatDau = column[12].FindElements(By.TagName("div"));
+                        for (int i = 0; i < dsTietBatDau.Count; i += 2)
+                        {
+                            string tietBatDau = dsTietBatDau[i].Text;
+                            if (i % 2 == 0)
+                            {
+                                nhomMonHoc.Buois[i / 2].TietBatDau = int.Parse(tietBatDau);
+                            }
+                        }
+
+                        ReadOnlyCollection<IWebElement> dsSoTiet = column[13].FindElements(By.TagName("div"));
+                        for (int i = 0; i < dsSoTiet.Count; i += 2)
+                        {
+                            string soTiet = dsSoTiet[i].Text;
+                            if (i % 2 == 0)
+                            {
+                                nhomMonHoc.Buois[i / 2].SoTiet = int.Parse(soTiet);
+
+                            }
+
+                        }
+
+                        ReadOnlyCollection<IWebElement> dsPhong = column[14].FindElements(By.TagName("div"));
+                        for (int i = 0; i < dsPhong.Count; i += 2)
+                        {
+                            string phong = dsPhong[i].Text;
+                            if (i % 2 == 0)
+                            {
+                                nhomMonHoc.Buois[i / 2].Phong = phong;
+
+                            }
+
+                        }
+
+                        ReadOnlyCollection<IWebElement> dsGiangVien = column[15].FindElements(By.TagName("div"));
+                        for (int i = 0; i < dsGiangVien.Count; i += 2)
+                        {
+                            string giangVien = dsGiangVien[i].Text;
+                            if (i % 2 == 0)
+                            {
+                                nhomMonHoc.Buois[i / 2].GiangVien = giangVien;
+
+                            }
+
+                        }
+
+                        context.SaveChanges();
+                    }
+                }
+
+            }
         }
 
         private static void RunSeleniumBK()
