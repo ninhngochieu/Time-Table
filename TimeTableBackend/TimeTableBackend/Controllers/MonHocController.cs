@@ -9,12 +9,13 @@ using TimeTableBackend.Models;
 
 namespace TimeTableBackend.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
     public class MonHocController : ControllerBase
     {
         private readonly Context _context;
-
+        public static int index = 0;
         public MonHocController(Context context)
         {
             _context = context;
@@ -107,7 +108,7 @@ namespace TimeTableBackend.Controllers
         [HttpPost("SapXepDanhSachMonHoc")]
         public ActionResult<List<List<NhomMonHoc>>> PostDanhSachMonHoc(List<MonHoc> dsMonHoc)
         {
-
+            index = 0;
             List<NhomMonHoc> nhomMonHocs = new List<NhomMonHoc>();
             List<List<NhomMonHoc>> listNhomMonHocs = new List<List<NhomMonHoc>>();
             foreach (var monhoc in dsMonHoc)
@@ -115,17 +116,72 @@ namespace TimeTableBackend.Controllers
                 List<NhomMonHoc> nhomMonHocEx = _context.MonHocs.Where(i => i.Id == monhoc.Id).Include(n => n.NhomMonHoc).ThenInclude(s => s.Buois).FirstOrDefault().NhomMonHoc.ToList();
                 nhomMonHocs.AddRange(nhomMonHocEx);
             }
-            List<List<NhomMonHoc>> list = SapXepMonHoc(nhomMonHocs);
+            Dictionary<List<NhomMonHoc>, List<List<NhomMonHoc>>> dict = new Dictionary<List<NhomMonHoc>, List<List<NhomMonHoc>>>();
+            List<List<NhomMonHoc>> list = SapXepMonHoc(nhomMonHocs, dict, dsMonHoc.Count);
             list.RemoveAll(p =>
             {
-                //return false;
+                return false;
                 if (chongCheoTKB(p))
                 {
                     return true;
                 }
                 return false;
+                //if (chongCheoTkbAlgorithm(p))
+                //{
+                //    return true;
+                //}
+                return false;
             });
             return list;
+        }
+
+        private bool chongCheoTkbAlgorithm(List<NhomMonHoc> nhomMonHocs)
+        {
+            List<Buoi> buois = new List<Buoi>();
+            nhomMonHocs.ForEach(tkb =>
+            {
+                tkb.Buois.ForEach(buoi =>
+                {
+                    Buoi buoiMoi = _context.Buois.Where(i => i.Id == buoi.Id).Include(n => n.NhomMonHoc).FirstOrDefault();
+                    buois.Add(buoiMoi);
+                });
+            });
+            buois.Sort((obj1, obj2) =>
+            {
+                if (obj1.BatDauLuc < obj2.BatDauLuc) return -1;
+                else if (obj2.BatDauLuc > obj2.BatDauLuc) return 1;
+                return 0;
+            });
+
+            for (int i = 1; i < buois.Count; i++)
+            {
+                if (buois[i - 1].NhomMonHocId == buois[i].NhomMonHocId)
+                {
+                    //Dam bao 2 buoi trong cung 1 nhom khong gap nhau
+                }
+                else
+                {
+                    //Kiem tra thu may
+                    if (buois[i - 1].BatDauLuc == buois[i].BatDauLuc)
+                    {
+                        //Co trung tiet bat dau hay khong
+                        if (buois[i - 1].TietBatDau == buois[i].TietBatDau)
+                        {
+                            return true;
+                        }
+                        else if (buois[i - 1].TietBatDau < buois[i].TietBatDau)
+                        {
+                            if (buois[i - 1].TietBatDau + buois[i - 1].SoTiet - 1 >= buois[i].TietBatDau) return true;
+                        }
+                        else
+                        {
+                            if (buois[i].TietBatDau + buois[i].SoTiet - 1 >= buois[i - 1].TietBatDau) return true;
+                        }
+
+                    }
+                }
+            }
+            return false;
         }
 
         private bool chongCheoTKB(List<NhomMonHoc> nhomMonHocs)
@@ -175,8 +231,10 @@ namespace TimeTableBackend.Controllers
             return false;
         }
 
-        private List<List<NhomMonHoc>> SapXepMonHoc(List<NhomMonHoc> nhomMonHocs)
+        private List<List<NhomMonHoc>> SapXepMonHoc(List<NhomMonHoc> nhomMonHocs, Dictionary<List<NhomMonHoc>, List<List<NhomMonHoc>>> dict, int count)
         {
+            //if (dict.ContainsKey(nhomMonHocs)) return dict[nhomMonHocs] ;
+
             List<List<NhomMonHoc>> result = new List<List<NhomMonHoc>>();
             if (nhomMonHocs.Count == 0) return new List<List<NhomMonHoc>>()
             {
@@ -188,13 +246,25 @@ namespace TimeTableBackend.Controllers
 
             foreach(var nhm in nhomMonHocFilter)
             {
-                List<List<NhomMonHoc>> list = SapXepMonHoc(newNhomMonHoc);
-                foreach(var l in list)
+                List<List<NhomMonHoc>> list = SapXepMonHoc(newNhomMonHoc, dict, count);
+                //Quy hoach dong
+
+                //De quy
+                foreach (var l in list)
                 {
-                    l.Add(nhm); //Current node result
+                    //l.Add(nhm); //Current node result
+                    l.Insert(0, nhm);
                 }
                 result.AddRange(list);
+
+                //result.RemoveAll(tkb =>
+                //{
+                //    if (chongCheoTKB(tkb)) return true;
+                //    return false;
+                //});
+
             }
+            //dict[nhomMonHocs] = result;
             return result;
         }
     }

@@ -1,11 +1,11 @@
 ﻿<Properties StartupConfiguration="{FF76D954-E95F-427D-91D4-C7CF286F6389}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="TimeTableBackend/Program.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="TimeTableBackend/Controllers/MonHocController.cs">
     <Files>
       <File FileName="TimeTableBackend/Controllers/NhomMonHocController.cs" Line="21" Column="10" />
-      <File FileName="TimeTableBackend/Controllers/MonHocController.cs" />
+      <File FileName="TimeTableBackend/Controllers/MonHocController.cs" Line="261" Column="20" />
       <File FileName="TimeTableBackend/Startup.cs" />
-      <File FileName="TimeTableBackend/Program.cs" Line="95" Column="1" />
-      <File FileName="TimeTableBackend/Models/MonHoc.cs" Line="1" Column="1" />
+      <File FileName="TimeTableBackend/Models/MonHoc.cs" />
+      <File FileName="TimeTableBackend/Program.cs" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -15,10 +15,11 @@
               <Node name="Dependencies" expanded="True">
                 <Node name="PackageDependencies" expanded="True" />
               </Node>
-              <Node name="Controllers" expanded="True" />
+              <Node name="Controllers" expanded="True">
+                <Node name="MonHocController.cs" selected="True" />
+              </Node>
               <Node name="Migrations" expanded="True" />
               <Node name="Models" expanded="True" />
-              <Node name="Program.cs" selected="True" />
             </Node>
           </Node>
         </State>
